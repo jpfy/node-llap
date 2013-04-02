@@ -26,11 +26,15 @@ exports.init = function(io){
 		socket.on('request-server-info', function (data) {
 			socket.emit('server-info-response', { serialPort: serport.getPath() });
 		});
+	// send an LLAP message over serial
+		socket.on('send-llap-msg', function(data){
+			serport.sendLLAPmsg(data.content);
+		});
 	});
 };
 
 exports.onDataOverSerial = function(data){
-	console.log('onDataOverSerial', data);
+	console.log('onDataOverSerial', data.toString());
 	// process data received
 };
 

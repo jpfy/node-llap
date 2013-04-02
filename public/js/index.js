@@ -8,5 +8,12 @@ $(document).ready(function(){
 				socket.emit('animation-selected', { id:n });
 			}
 		 */
+		if( socket && socket_connected ){
+			socket.emit('send-llap-msg', {
+				content:$('#wrapper #serialtalk #serialtalk-text').val()
+			});
+		} else {
+			// socket unavailable: can't send
+		}
 	});	
 });

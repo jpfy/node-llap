@@ -1,3 +1,5 @@
+var lhelper = require('./llap_helper');
+
 /*
 	Public API
 */
@@ -19,6 +21,16 @@ exports.getPath = function()
 	} else {
 		return "not connected";
 	}
+}
+
+exports.sendLLAPmsg = function(msg)
+{
+	msg = lhelper.padMessage(lhelper.fixSignature(msg));
+	if(lhelper.isValid(msg)) {
+		sendDataOverSerial(msg);
+	} else {
+		console.log('error :: the message "'+msg+'" is not valid.');
+	}		
 }
 
 /*
@@ -78,7 +90,7 @@ var detectSerialOnRaspberryPI = function()
 var attemptConnection = function(port)
 {
 	console.log('* attempting to connect to serial at :', port, ' *');
-	serport = new serialport.SerialPort(port, { baudrate: 9600, parser: serialport.parsers.readline("\n") });
+	serport = new serialport.SerialPort(port, { baudrate: 9600 });
 	serport.on("open", function () {
 		console.log('* connection to a serial port successful ! *');
 		serport.on('data', function(data){
