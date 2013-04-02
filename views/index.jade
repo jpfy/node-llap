@@ -1,0 +1,27 @@
+extends layout
+
+block content
+	.navbar
+		.navbar-inner
+			#user-id.brand
+	#wrapper
+		#serialtalk(style="text-align: center;")
+			//form.form-inline
+			.input-append
+				input#serialtalk-text.span2(type="text", placeholder="LLAP message")
+				button#serialtalk-btn.btn Send
+			p Last response:&nbsp;
+				span#serialtalk-resp nothing yet
+
+block footer
+	p	<strong>Server info:</strong>&nbsp;
+		| #{process.title}:[#{process.version}]
+		| serial-port:[
+		span#serial-port-elt
+		|]
+
+
+block scripts
+	script(src='/js/index.js')
+	script(src="/socket.io/socket.io.js")
+	script(src='/js/socket_client.js')
