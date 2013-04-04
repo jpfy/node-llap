@@ -1,6 +1,7 @@
 var sockets;
 var serport = require('./serial_node');
 var lhelper = require('./llap_helper');
+var logger = require('./log_backend');
 var activeUser;
 
 /*
@@ -36,9 +37,10 @@ exports.init = function(io){
 
 exports.onDataOverSerial = function(data){
 	var msg = data.toString();
-	console.log('onDataOverSerial', msg);
 	// process data received
 	if (lhelper.isValid(msg)) {
+		// log the message
+		logger.log_message(msg);
 		// let all the clients know about the message
 		sockets.emit('received-llap-msg', { content: msg });
 	} else {

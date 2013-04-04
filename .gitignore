@@ -2,3 +2,4 @@
 node_modules
 *.sublime-workspace
 public/css/style.css
+serial_incoming*.log
