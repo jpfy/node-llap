@@ -3,9 +3,7 @@ var socket_connected = false;
 var autoMode;
 
 socket.on('connected-to-server', function (data) {
-
 // update the view based with the current server settings //
-	
 // generate a random id for this newly connected user //
 	var id = Math.floor(Math.random()*9999);
 	$('#user-id').html('Connected : <span style="color:blue">'+id+'</span>');
@@ -16,4 +14,8 @@ socket.on('connected-to-server', function (data) {
 
 socket.on('server-info-response', function (data) {
 	$('footer #serial-port-elt').html('<span>'+data.serialPort+'</span>');
+});
+
+socket.on('received-llap-msg', function (data) {
+	$('#serialtalk #serialtalk-resp').html(data.content);
 });

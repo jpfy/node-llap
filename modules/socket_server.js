@@ -1,5 +1,6 @@
 var sockets;
 var serport = require('./serial_node');
+var lhelper = require('./llap_helper');
 var activeUser;
 
 /*
@@ -34,8 +35,15 @@ exports.init = function(io){
 };
 
 exports.onDataOverSerial = function(data){
-	console.log('onDataOverSerial', data.toString());
+	var msg = data.toString();
+	console.log('onDataOverSerial', msg);
 	// process data received
+	if (lhelper.isValid(msg)) {
+		// let all the clients know about the message
+		sockets.emit('received-llap-msg', { content: msg });
+	} else {
+		// message not valid
+	}
 };
 
 var onUserConnected = function(socket)
