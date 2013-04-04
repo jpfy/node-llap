@@ -1,17 +1,28 @@
 extends layout
 
-block content
+block top
 	.navbar
 		.navbar-inner
 			#user-id.brand
-	#wrapper
-		#serialtalk(style="text-align: center;")
-			//form.form-inline
-			.input-append
-				input#serialtalk-text.span2(type="text", placeholder="LLAP message")
-				button#serialtalk-btn.btn Send
-			p Last response:&nbsp;
-				span#serialtalk-resp nothing yet
+
+block left-column
+	#serialtalk.well
+		h5 Communicate over serial
+		//form.form-inline
+		.input-append
+			input#serialtalk-text.span7(type="text", placeholder="LLAP message")
+			button#serialtalk-btn.btn Send
+		p Last response:&nbsp;
+			span#serialtalk-resp nothing yet
+
+block main-column
+	#devices
+		.well wazzaup?
+
+
+block right-column
+	#logs.well
+		h5 Log
 
 block footer
 	p	<strong>Server info:</strong>&nbsp;

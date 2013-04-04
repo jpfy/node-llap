@@ -10,15 +10,15 @@ $(document).ready(function(){
 		 */
 		if( socket && socket_connected ){
 			socket.emit('send-llap-msg', {
-				content:$('#wrapper #serialtalk #serialtalk-text').val()
+				content:$('#serialtalk #serialtalk-text').val()
 			});
 		} else {
 			// socket unavailable: can't send
 		}
 	}
 
-	$('#wrapper #serialtalk #serialtalk-btn').click(sendLLAPmessageEvent);
-	$('#wrapper #serialtalk #serialtalk-text').keyup(function(e){
+	$('#serialtalk #serialtalk-btn').click(sendLLAPmessageEvent);
+	$('#serialtalk #serialtalk-text').keyup(function(e){
                 if (e.keyCode==13) { sendLLAPmessageEvent(e); }
     });
 });
