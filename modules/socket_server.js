@@ -3,10 +3,8 @@ var serport = require('./serial_node');
 var lhelper = require('./llap_helper');
 var logger = require('./log_backend');
 var activeUser;
-
-/*
-	TODO - need to store the current animation & autoMode setting on the server
-*/
+var TMtemp = "??";
+var TMbatt = "??";
 
 exports.init = function(io){
 	
@@ -41,8 +39,27 @@ exports.onDataOverSerial = function(data){
 	if (lhelper.isValid(msg)) {
 		// log the message
 		logger.log_message(msg);
-		// let all the clients know about the message
-		sockets.emit('received-llap-msg', { content: msg });
+
+		// process the message if "known"
+		var message = lhelper.message(msg);
+		switch (lhelper.deviceName(msg)) {
+			case "TM":
+				if(message.substring(0,4) == "TMPA") {
+					TMtemp = message.substring(4,9);
+					sockets.emit('received-TM-temp',
+						{ content: ("Temp: "+TMtemp+" ºC")});
+				}
+				if(message.substring(0,4) == "BATT") {
+					TMbatt = message.substring(4,9);
+					sockets.emit('received-TM-batt',
+						{ content: ("Batt: "+TMbatt+" V")});
+				}
+				break;
+			default:
+				// let all the clients know about the message|
+				sockets.emit('received-llap-msg', { content: msg });
+				break;
+		}
 	} else {
 		// message not valid
 	}
@@ -51,5 +68,8 @@ exports.onDataOverSerial = function(data){
 var onUserConnected = function(socket)
 {
 	serport.writeNumber(socket.user.id);
+	socket.emit('received-TM-temp', { content: ("Temp: "+TMtemp+" ºC") });
+	socket.emit('received-TM-batt', { content: ("Batt: "+TMbatt+" V") });
+
 	// here comes socket.on('something-happens', ...)
 }

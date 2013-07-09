@@ -17,6 +17,11 @@ exports.deviceName = function(msg) {
 	return msg.substring(1,3);
 }
 
+exports.message = function(msg,filler) {
+	if(!filler) { var filler = '-'; }
+	return msg.substring(3,12).replace(/-*$/,"");
+}
+
 exports.isValid = function(msg) {
 	return msg.length == 12 &&
 		msg.charAt(0) == 'a' &&
