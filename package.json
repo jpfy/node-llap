@@ -16,7 +16,7 @@
 		"stylus": "0.32.0",
 		"socket.io": "0.9.12",
 		"serialport": "1.1.1",
-		"winston": "0.6.2"
+		"winston": "0.7.2"
 	},
 	"engines": {
 		"node": "0.10.12",

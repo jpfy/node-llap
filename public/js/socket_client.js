@@ -20,6 +20,15 @@ socket.on('received-llap-msg', function (data) {
 	$('#serialtalk #serialtalk-resp').html(data.content);
 });
 
+// Logs
+
+socket.on('sent-latest-logs', function (data) {
+	$('#logs-content').html("");
+	data.file.forEach(function (elt) {
+		$('#logs-content').append(elt.timestamp + ": "+elt.message+"<br />");
+	});
+});
+
 // Sensors:
 
 // TM

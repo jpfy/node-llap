@@ -70,6 +70,7 @@ var onUserConnected = function(socket)
 	serport.writeNumber(socket.user.id);
 	socket.emit('received-TM-temp', { content: ("Temp: "+TMtemp+" ºC") });
 	socket.emit('received-TM-batt', { content: ("Batt: "+TMbatt+" V") });
+	logger.emit_latest_logs(socket);
 
 	// here comes socket.on('something-happens', ...)
 }
