@@ -1,13 +1,13 @@
 {
-	"name": "node-led",
+	"name": "node-llap",
 	"version": "0.0.1",
 	"author": {
-		"name": "Stephen Braitsch",
-		"email": "stephen@fuseproject.com"
+		"name": "flabbergast",
+		"email": "s3+flabbergast@sdfeu.org"
 	},
 	"repository": {
 		"type": "git",
-		"url": "git@github.com:fuseproject/node-led.git"
+		"url": "https://github.com/flabbergast/node-llap"
 	},
 	"private": true,
 	"dependencies": {
@@ -15,11 +15,11 @@
 		"jade": "0.28.1",
 		"stylus": "0.32.0",
 		"socket.io": "0.9.12",
-		"serialport": "https://github.com/voodootikigod/node-serialport/tarball/master",
+		"serialport": "1.1.1",
 		"winston": "0.6.2"
 	},
 	"engines": {
-		"node": "0.8.18",
-		"npm":  "1.2.2"
+		"node": "0.10.12",
+		"npm":  "1.2.32"
 	}
 }
