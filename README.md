@@ -19,8 +19,18 @@ Note that currently the app expects one Ciseco's [sensor with a thermistor](http
 
 ### More explanations
 
-Since it's veery unlikely that you'll have the same setup as me, some editing of the sources might be necessary. For this reason, I'm including some explanations for the sources:
+Since it's veery unlikely that you'll have the same setup as me, some editing of the sources might be necessary. For this reason, I'm including some explanations for the sources; and list some current limitations:
 
+ - _Problems_:
+    - only one serial port on the server: so one can't have wireless sensors together with, say, an Arduino over a USB
+    - the displayed logs are not being continuously updated, one has to click the 'refresh' button
+
+ - _Structure_:
+    - On the server side there is a _socket_ to each client (the main chunk of code for this is in `modules/socket_server.js`); and code to deal with the serial port (`modules/serial_node.js`).
+    - The client side is connected to a _socket_ (code is in `public/js/socket_client.js`).
+    - Sockets are implemented via [socket.io](http://socket.io/); for 'transmitting' a message via a socket one uses `socket.emit(...)`; for 'listening' for a message and act upon its receipt one uses `socket.on(...)`.
+    - The sources for the web page are `views/{index.jade,layout.jade}`, `public/css/style.styl` and `public/js/index.js`. Clicking on buttons (code in `index.js`) `socket.emit`'s, received messages are `socket.on`-listened to in `socket_client.js`, which then updates the page using [jquery](http://jquery.org).
+    - All received messages are logged to [winston](https://github.com/flatiron/winston)'s file backend on receipt (function `onDataOverSerial` in `socket_server.js`).
 
 ### Credits
 
