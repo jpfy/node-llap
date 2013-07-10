@@ -72,5 +72,8 @@ var onUserConnected = function(socket)
 	socket.emit('received-TM-batt', { content: ("Batt: "+TMbatt+" V") });
 	logger.emit_latest_logs(socket);
 
+	socket.on('requesting-logs-refresh', function (data) {
+		logger.emit_latest_logs(socket);
+	});
 	// here comes socket.on('something-happens', ...)
 }

@@ -21,4 +21,10 @@ $(document).ready(function(){
 	$('#serialtalk #serialtalk-text').keyup(function(e){
                 if (e.keyCode==13) { sendLLAPmessageEvent(e); }
     });
+
+    $('#refresh-logs-btn').click(function(e){
+    	if( socket && socket_connected ){
+    		socket.emit('requesting-logs-refresh', {});
+    	}
+    });
 });
