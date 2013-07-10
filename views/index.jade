@@ -10,7 +10,7 @@ block left-column
 		h5 Communicate over serial
 		//form.form-inline
 		.input-append
-			input#serialtalk-text.span7(type="text", placeholder="LLAP message")
+			input#serialtalk-text(type="text", placeholder="LLAP message")
 			button#serialtalk-btn.btn Send
 		p Last response:&nbsp;
 			span#serialtalk-resp nothing yet
@@ -25,7 +25,7 @@ block main-column
 
 block right-column
 	#logs.well
-		h5 Log
+		h5 Logs
 		div#logs-content
 
 block footer

@@ -9,17 +9,21 @@ html
 		meta(name="apple-touch-fullscreen", content="yes")
 		meta(name="apple-mobile-web-app-capable", content="yes")
 		meta(name="apple-mobile-web-app-status-bar-style", content="black")
-		meta(name="viewport", content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0")
+		//meta(name="viewport", content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0")
+		meta(name="viewport", content="initial-scale=1.0, width=device-width")
 	body
 		block top
-		.container-fluid
-			.row-fluid
-				#left-column.span3
-					block left-column
-				#main-column.span6
-					block main-column
-				#right-column.span3
-					block right-column
+		.container#main-body
+			block main-column
+			block left-column
+			block right-column
+		//- 	.row-fluid
+		//- 		#left-column.span3
+		//- 			block left-column
+		//- 		#main-column.span6
+		//- 			block main-column
+		//- 		#right-column.span3
+		//- 			block right-column
 		footer.footer
 			block footer
 		script(src='/vendor/jquery-1.9.0.min.js')
