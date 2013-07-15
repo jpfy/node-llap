@@ -74,7 +74,8 @@ var detectSerialOnRaspberryPI = function()
 			if (obj.hasOwnProperty('pnpId')){
 		// FTDI captures the duemilanove //
 		// Arduino captures the leonardo //
-				if (obj.pnpId.search('FTDI') != -1 || obj.pnpId.search('Arduino') != -1) {
+		// CC1111 captures the URF stick //
+				if (obj.pnpId.search('FTDI') != -1 || obj.pnpId.search('Arduino') != -1 || obj.pnpId.search('CC1111') != -1) {
 					port = obj.comName;
 				}
 			}
@@ -126,3 +127,4 @@ var sendDataOverSerial = function(buffer)
 }
 
 detectSerialOnOSX();
+//detectSerialOnRaspberryPI();
