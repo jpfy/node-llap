@@ -2,6 +2,12 @@ var socket = io.connect('/');
 var socket_connected = false;
 var autoMode;
 
+var TMsensor = require('./sensors/TM.js')
+
+// Sensors: register on the socket
+TMsensor.register(socket);
+
+// Initialising the connection
 socket.on('connected-to-server', function (data) {
 // update the view based with the current server settings //
 // generate a random id for this newly connected user //
@@ -27,14 +33,4 @@ socket.on('sent-latest-logs', function (data) {
 	data.file.forEach(function (elt) {
 		$('#logs-content').append(elt.timestamp + ": "+elt.message+"<br />");
 	});
-});
-
-// Sensors:
-
-// TM
-socket.on('received-TM-temp', function (data) {
-	$('#TMtemp').html(data.content);
-});
-socket.on('received-TM-batt', function (data) {
-	$('#TMbatt').html(data.content);
 });
