@@ -1,11 +1,11 @@
+/*
+ * socket_client.js
+ * The code that initalises the socket on the client side
+ * and performs initial communication with the server.
+ */
+
 var socket = io.connect('/');
 var socket_connected = false;
-var autoMode;
-
-var TMsensor = require('./sensors/TM.js')
-
-// Sensors: register on the socket
-TMsensor.register(socket);
 
 // Initialising the connection
 socket.on('connected-to-server', function (data) {

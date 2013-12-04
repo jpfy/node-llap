@@ -1,5 +1,7 @@
 extends layout
 
+//- include new devices in the 'main-column' and 'scripts' blocks
+
 block top
 	.navbar
 		.navbar-inner
@@ -17,6 +19,7 @@ block left-column
 
 block main-column
 	#devices
+		//- INCLUDE sensors (the displayed blocks)
 		include sensors/TM.jade
 
 
@@ -38,3 +41,5 @@ block scripts
 	script(src='/js/index.js')
 	script(src="/socket.io/socket.io.js")
 	script(src='/js/socket_client.js')
+	//- INCLUDE sensors (the code that updates the page with new data)
+	script(src='/js/sensors/TM.js')
