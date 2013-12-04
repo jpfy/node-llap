@@ -2,6 +2,8 @@
 
 A [node.js](http://nodejs.org) app for collecting and displaying LLAP messages from sensors (a-la [Ciseco sensors](http://http://shop.ciseco.co.uk/sensor/)).
 
+Hopefully it should not be too hard for you to poke around the sources, figuring out what code does what and how to modify it to one's needs.
+
 ### Setup
 
 The basic hardware setup is:
@@ -31,6 +33,12 @@ Since it's veery unlikely that you'll have the same setup as me, some editing of
     - Sockets are implemented via [socket.io](http://socket.io/); for 'transmitting' a message via a socket one uses `socket.emit(...)`; for 'listening' for a message and act upon its receipt one uses `socket.on(...)`.
     - The sources for the web page are `views/{index.jade,layout.jade}`, `public/css/style.styl` and `public/js/index.js`. Clicking on buttons (code in `index.js`) `socket.emit`'s, received messages are `socket.on`-listened to in `socket_client.js`, which then updates the page using [jquery](http://jquery.org).
     - All received messages are logged to [winston](https://github.com/flatiron/winston)'s file backend on receipt (function `onDataOverSerial` in `socket_server.js`).
+
+### Changelog
+
+#### [0.1.0](https://github.com/flabbergast/node-llap/releases/tag/v0.1.0)
+
+Working code (on my machines). Running elsewhere will likely need some source modifications.
 
 ### Credits
 

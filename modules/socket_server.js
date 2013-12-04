@@ -1,3 +1,12 @@
+/*
+ * socket_server.js
+ *
+ * This code runs on the server, maintaining the socket, taking care of
+ * connecting to clients and processing the incoming LLAP messages (by
+ * passing them down to individual handlers), logging the messages to
+ * a file.
+ */
+
 var sockets;
 var serport = require('./serial_node');
 var lhelper = require('./llap_helper');
