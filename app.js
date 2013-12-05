@@ -1,6 +1,6 @@
 
 /**
- * Node-Serial
+ * Node-LLAP
  * Author: flabbergast
  * based on node-leds by Stephen Braitsch (https://github.com/braitsch/node-leds)
  */
@@ -11,6 +11,14 @@ var express = require('express')
   , socket = require('./modules/socket_server');
 
 var app = express();
+
+/*
+ * have the current version number available
+ */
+app.locals({
+	app_version: "v0.1.0",
+	app_title: "node-LLAP"
+});
 
 app.configure(function(){
 	app.set('port', 8080);
