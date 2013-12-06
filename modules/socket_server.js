@@ -12,8 +12,7 @@ var serport = require('./serial_node');
 var lhelper = require('./llap_helper');
 var logger = require('./log_backend');
 var activeUser;
-var TMtemp = "??";
-var TMbatt = "??";
+var sensors = require('./sensors');
 
 exports.init = function(io){
 	
@@ -53,16 +52,7 @@ exports.onDataOverSerial = function(data){
 		var message = lhelper.message(msg);
 		switch (lhelper.deviceName(msg)) {
 			case "TM":
-				if(message.substring(0,4) == "TMPA") {
-					TMtemp = message.substring(4,9);
-					sockets.emit('received-TM-temp',
-						{ content: ("Temp: "+TMtemp+" ºC")});
-				}
-				if(message.substring(0,4) == "BATT") {
-					TMbatt = message.substring(4,9);
-					sockets.emit('received-TM-batt',
-						{ content: ("Batt: "+TMbatt+" V")});
-				}
+				sensors.TM.onDataOverSerial(sockets,message);
 				break;
 			default:
 				// let all the clients know about the message|
@@ -77,8 +67,7 @@ exports.onDataOverSerial = function(data){
 var onUserConnected = function(socket)
 {
 	serport.writeNumber(socket.user.id);
-	socket.emit('received-TM-temp', { content: ("Temp: "+TMtemp+" ºC") });
-	socket.emit('received-TM-batt', { content: ("Batt: "+TMbatt+" V") });
+	sensors.TM.onUserConnected(socket);
 	logger.emit_latest_logs(socket);
 
 	socket.on('requesting-logs-refresh', function (data) {
