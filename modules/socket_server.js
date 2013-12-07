@@ -12,6 +12,7 @@ var serport = require('./serial_node');
 var lhelper = require('./llap_helper');
 var logger = require('./log_backend');
 var activeUser;
+// load all ./sensors/*.js into one object
 var sensors = require('./sensors');
 
 exports.init = function(io){
@@ -48,16 +49,16 @@ exports.onDataOverSerial = function(data){
 		// log the message
 		logger.log_message(msg);
 
-		// process the message if "known"
+		// process the message
 		var message = lhelper.message(msg);
-		switch (lhelper.deviceName(msg)) {
-			case "TM":
-				sensors.TM.onDataOverSerial(sockets,message);
-				break;
-			default:
-				// let all the clients know about the message|
-				sockets.emit('received-llap-msg', { content: msg });
-				break;
+		var devname = lhelper.deviceName(msg);
+		if(sensors.hasOwnProperty(devname) && sensors[devname].hasOwnProperty('onDataOverSerial')){
+			// found a sensor with the correct name
+			sensors[devname].onDataOverSerial(sockets,message);
+		} else {
+			// we've got no sensor service code for this device
+			// let all the clients know about the message
+			sockets.emit('received-llap-msg', { content: msg });
 		}
 	} else {
 		// message not valid
@@ -67,7 +68,12 @@ exports.onDataOverSerial = function(data){
 var onUserConnected = function(socket)
 {
 	serport.writeNumber(socket.user.id);
-	sensors.TM.onUserConnected(socket);
+	// run initialisation code for all loaded sensors
+	for(var s in sensors){
+		if(sensors.hasOwnProperty(s) && sensors[s].hasOwnProperty('onUserConnected')){
+			sensors[s].onUserConnected(socket);
+		}
+	}
 	logger.emit_latest_logs(socket);
 
 	socket.on('requesting-logs-refresh', function (data) {
