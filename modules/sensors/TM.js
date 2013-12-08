@@ -12,8 +12,14 @@
  *       the serial connection and send the update over the socket
  */
 
+/* TODO: 
+ * - remember and display time of last message
+ */
+
 var TMtemp = "??";
+var TMtempTime = "no reading yet";
 var TMbatt = "??";
+var TMbattTime = "no reading yet";
 
 exports.init = function(socket){
 };
@@ -21,6 +27,7 @@ exports.init = function(socket){
 exports.onUserConnected = function(socket){
 	socket.emit('received-TM-temp', { content: ("Temp: "+TMtemp+" ºC") });
 	socket.emit('received-TM-batt', { content: ("Batt: "+TMbatt+" V") });
+	// t: set the time of the last reading
 };
 
 exports.onDataOverSerial = function(sockets,message){

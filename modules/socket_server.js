@@ -39,6 +39,12 @@ exports.init = function(io){
 		socket.on('send-llap-msg', function(data){
 			serport.sendLLAPmsg(data.content);
 		});
+		// initialise the sensor code (if they want to add some listeners)
+		for(var s in sensors){
+			if(sensors.hasOwnProperty(s) && sensors[s].hasOwnProperty('init')){
+				sensors[s].init(socket);
+			}
+		}
 	});
 };
 
@@ -68,7 +74,7 @@ exports.onDataOverSerial = function(data){
 var onUserConnected = function(socket)
 {
 	serport.writeNumber(socket.user.id);
-	// run initialisation code for all loaded sensors
+	// run userConnected initialisation code for all loaded sensors
 	for(var s in sensors){
 		if(sensors.hasOwnProperty(s) && sensors[s].hasOwnProperty('onUserConnected')){
 			sensors[s].onUserConnected(socket);
