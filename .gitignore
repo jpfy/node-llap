@@ -3,3 +3,4 @@ node_modules
 *.sublime-*
 public/css/style.css
 serial_incoming*.log
+data_log/*

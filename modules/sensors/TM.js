@@ -21,6 +21,8 @@ var TMtempTime = "no reading yet";
 var TMbatt = "??";
 var TMbattTime = "no reading yet";
 
+var logger = require('../simple_log.js');
+
 exports.init = function(socket){
 };
 
@@ -35,10 +37,12 @@ exports.onDataOverSerial = function(sockets,message){
 		TMtemp = message.substring(4,9);
 		sockets.emit('received-TM-temp',
 			{ content: ("Temp: "+TMtemp+" ºC")});
+		logger.log('TM-temp',TMtemp);
 	}
 	if(message.substring(0,4) == "BATT") {
 		TMbatt = message.substring(4,9);
 		sockets.emit('received-TM-batt',
 			{ content: ("Batt: "+TMbatt+" V")});
+		logger.log('TM-batt',TMbatt);
 	}
 };
