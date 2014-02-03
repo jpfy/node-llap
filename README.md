@@ -4,6 +4,10 @@ A [node.js](http://nodejs.org) app for collecting and displaying LLAP messages f
 
 Hopefully it should not be too hard for you to poke around the sources, figuring out what code does what and how to modify it to one's needs.
 
+## Notice
+
+While doing this project was fun, I have moved on to a different solution for the same "problem". The approach taken in this project is "one app to rule them all": the node app monitors the incoming transmissions, processes them, logs the data, takes care of displaying the data over http. I was having hard time making the logging work the way I wanted, and figuring out how to display graphs was a bit daunting. So, all in all, I probably won't work on this anymore.
+
 ### Setup
 
 The basic hardware setup is:
